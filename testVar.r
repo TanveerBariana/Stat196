@@ -28,8 +28,24 @@ mean.add.5
 sd.add.5 <- sd(w + 5)
 sd.add.5
 #the mean is shifted the scalar amount, sd is unaffected
+
 #2
-#a
-#matrix1 <- c((1,5,3), (4,7,9), (3,2,9))
-matrix1= matrix(c(1,5,3,4,7,9,3,2,9), ncol= 3, nrow= 3)
+matrix1= t(matrix(c(1,5,3,4,7,9,3,2,9), ncol= 3, nrow= 3))
+#a 
+col3 <- matrix1[ ,3]
+#b
+myelement <- matrix1[3, 2]
+#c
+matrix2 <- matrix(2:5, nrow = 2, ncol= 2)
+#d
 t(matrix1)
+t(matrix2)
+#it creates the transpose
+
+#3
+mynums <- matrix(c(1, 2, 3, 4), ncol= 2, nrow=2)
+mynames <- c("Ruby", "Miguel", "Tiffany", "Tyler")
+mylist =list(x= mynums, y= mynames)
+#a
+mydet <- det(mylist$x)
+favename <- mylist$y[3]
