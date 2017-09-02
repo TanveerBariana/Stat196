@@ -48,4 +48,23 @@ mynames <- c("Ruby", "Miguel", "Tiffany", "Tyler")
 mylist =list(x= mynums, y= mynames)
 #a
 mydet <- det(mylist$x)
+#b
 favename <- mylist$y[3]
+
+#4
+?swiss
+#a
+ag.col <- swiss[,2]
+#b
+male.perc.male.ag <- mean(ag.col)
+#c
+row40 <- swiss[40,]
+#d
+summary(swiss)
+
+#5
+red <- function(x){
+  function1output <- sum(x,sqrt(x))
+  return(function1output)
+}
+red(14)
