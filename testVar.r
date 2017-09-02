@@ -68,3 +68,16 @@ red <- function(x){
   return(function1output)
 }
 red(14)
+#6
+blue <- function(x, y){
+  function2out<- (x*y)/2
+  return(function2out)
+} 
+blue(3.7, 4.6)
+
+#7
+yell <- function(x1,y1, x2,y2){
+  ans <- sqrt(((x2-x1)^2)+((y2-y1)^2))
+  return(abs(ans))
+}
+yell(1,5, -2, 7.4)
