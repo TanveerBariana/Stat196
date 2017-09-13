@@ -17,7 +17,7 @@ for(i in 1:length(x)){
 smallnums<- NULL
 for(i in 1:length(x)){
   if(x[i]<10){
-   smallnums[i]<- x[i]
+   smallnums<- c(smallnums, x[i])
   }
 }
 #2
