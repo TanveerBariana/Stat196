@@ -13,7 +13,7 @@ for (i in 1:length(x)) {
         }
 }
 #d
-sd(x)
+sd(na.omit(x))
 #e
 sum(is.na(x))
 #f
