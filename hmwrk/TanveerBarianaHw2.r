@@ -72,4 +72,3 @@ for(i in 2:600){
   fiveH<- c(fiveH, xi)
 }
 #no it doesnt matter
-
