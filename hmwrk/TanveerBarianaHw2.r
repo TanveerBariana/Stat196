@@ -65,10 +65,19 @@ for(i in 2:600){
   xi<- ((xi^2)+9)/(2*xi)
   fiveH<- c(fiveH, xi)
 }
-xi <- 5
+xi <- 30000000
 fiveH<-xi
 for(i in 2:600){
   xi<- ((xi^2)+9)/(2*xi)
   fiveH<- c(fiveH, xi)
 }
 #no it doesnt matter
+
+#e
+#plot(1:600, fiveH)
+
+#3
+?mtcars
+View(mtcars)
+#a
+dim(mtcars)
