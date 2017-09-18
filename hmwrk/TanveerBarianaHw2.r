@@ -6,11 +6,11 @@ loc<- NULL
 x <- c(2, 10, 57, NA, 7.6, NA, 200, 9)
 #b
 for (i in 1:length(x)) {
-  if (x[i] < 10) {
-    smallTen <- c(smallTen, x[i])
-    #c
-    loc<- c(loc, i)
-  }
+        if (is.na(x[i]) == F && x[i] < 10 ) {
+            smallTen <- c(smallTen, x[i])
+         #c
+            loc<- c(loc, i)
+        }
 }
 #d
 sd(x)
