@@ -20,7 +20,7 @@ sum(is.na(x))
 na.omit(x)
 is.na(x)
 !is.na(x)
-#! is useful if you wnated to loop through teh vecor indexes and add the elements to a new vector if they were not NA
+#! is useful if you wnated to loop through the vecor indexes and add the elements to a new vector if they were not NA
 
 #2
 xi <- 1 
@@ -53,7 +53,7 @@ options(digits=22)
 #it converges to 3 VERY EARLY
 
 #d
-xi <- 3000
+xi <- 0
 fiveH<-xi
 for(i in 2:100){
   xi<- ((xi^2)+9)/(2*xi)
@@ -65,13 +65,13 @@ for(i in 2:600){
   xi<- ((xi^2)+9)/(2*xi)
   fiveH<- c(fiveH, xi)
 }
-xi <- 30000000
+xi <- -30000000
 fiveH<-xi
 for(i in 2:600){
   xi<- ((xi^2)+9)/(2*xi)
   fiveH<- c(fiveH, xi)
 }
-#no it doesnt matter
+#the sign matters, except 0, where it dies
 
 #e
 #plot(1:600, fiveH)
