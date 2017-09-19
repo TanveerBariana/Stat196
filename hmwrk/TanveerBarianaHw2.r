@@ -78,8 +78,30 @@ plot(1:600, fiveH)
 
 
 #3
-?mtcars
+#?mtcars
 View(mtcars)
 #a
 dim(mtcars)
 #it shows the Num of observations then the number of variables 
+
+#b
+class(mtcars)
+
+#c
+which(mtcars$cyl ==4)
+#d
+fourcylinder<- data.frame(NULL)
+for(i in mtcars[,(1:(dim(mtcars)[2]))){
+    cbind(fourcylinder, i)
+}
+
+#fourcylinder<- mtcars[,which(mtcars$cyl ==4)]
+mtcars
+fourcylinder
+n = c(2, 3, 5) 
+s = c("aa", "bb", "cc") 
+b = c(TRUE, FALSE, TRUE) 
+df = data.frame(n, s, b)
+df
+fourcylinder
+(dim(mtcars)[2])
