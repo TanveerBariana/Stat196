@@ -74,7 +74,7 @@ for(i in 2:600){
 #the sign matters, except 0, where it dies
 
 #e
-#plot(1:600, fiveH)
+plot(1:600, fiveH)
 
 
 #3
