@@ -76,8 +76,10 @@ for(i in 2:600){
 #e
 #plot(1:600, fiveH)
 
+
 #3
 ?mtcars
 View(mtcars)
 #a
 dim(mtcars)
+#it shows the Num of observations then the number of variables 
