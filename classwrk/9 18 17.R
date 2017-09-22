@@ -33,6 +33,19 @@ colSum
 bigMat<- apply(z, 1:3)
 
 #central limit ex
-sample <- runif(5)
+sample <- runif(500)
 mean(sample)
- 
+hist(sample)
+
+#1
+matty <- matrix(runif(1000), 200, 5)
+#2
+hist(matty)
+#3
+rowmeans <- apply(matty, 1, mean)
+hist(rowmeans)
+trut <- sqrt((1 - 0) ^ 2 / 12) / sqrt(5)
+abline(v=0.5, col="red")
+
+grid <- seq(from <- 0, to = 1, by = 0.01)
+points(grid, dnorm(grid, mean = 0.5, sd = ))
