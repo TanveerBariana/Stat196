@@ -38,6 +38,7 @@ for(i in 2:500){
   xi<- ((xi^2)+9)/(2*xi)
   fiveH<- c(fiveH, xi)
 }
+
 #it converges to 3
 
 #c
@@ -87,19 +88,61 @@ dim(mtcars)
 class(mtcars)
 
 #c
-which(mtcars$cyl ==4)
+which(mtcars$cyl == 4)
 #d
-fourcylinder<- data.frame(NULL)
-for(i in mtcars[,(1:(dim(mtcars)[2]))){
+fourcylinder <- data.frame(NULL)
+for (i in mtcars[, (1:(dim(mtcars)[2]))) {
     cbind(fourcylinder, i)
 }
 #e
 fourcylinder <- mtcars[which(mtcars$cyl == 4),]
+#f
+autofour <- fourcylinder[which(fourcylinder$am == 0),]
+mpg <- mean(autofour[, 1])
 
-#n = c(2, 3, 5) 
-#s = c("aa", "bb", "cc") 
-#b = c(TRUE, FALSE, TRUE) 
-#df = data.frame(n, s, b)
-#df
-#fourcylinder
-#(dim(mtcars)[2])
+#4
+
+#a
+x.grid <- seq(from = -2, to = 2, by = 0.01)
+y <- (x.grid)^2 #look inside y, it is a vector
+plot(x.grid, y, type = "l")
+#b
+wHMean <- rnorm(n = 500, mean = 65, sd = 3.5)
+#c
+hist(wHMean, freq = FALSE)
+#d
+curve(dnorm(x, mean = 65, sd = 3.5), add = TRUE)
+
+#5
+
+x <- c(3, 7, 10, 5, 22, 11)
+#a
+w <- NULL
+for (i in 1:length(x)) {
+    w[i] <- x[i]^3
+}
+#b
+w <- x ^ 3
+#c
+myproducts <- NULL
+for (i in 2:length(x)) {
+    myproducts<- c(myproducts, (x[i] * x[i-1]))
+}
+
+#6
+fibbo <- 1
+for (i in 1:29) {
+    fibbo <- c(fibbo, sum(fibbo[i], fibbo[i-1])) 
+}
+#a
+? ifthen
+adds<- NULL
+for (i in fibbo) {
+    if (i %% 2 == 0) {
+        adds<- sum(adds, i)
+    } else {
+        #idk, do something else. see if i care R
+    }
+}
+#b
+here<- sum(fibbo[fibbo %% 2 ==0])
