@@ -1,3 +1,4 @@
+
 #9/18/2017
 mymat<- matrix(1:9, nrow = 3, ncol = 3)
 mymat
