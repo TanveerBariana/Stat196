@@ -56,10 +56,13 @@ entire
 X <- matrix(rep(1, times= 5))
 X <- cbind(X, hmwrk)
 y <- finla
+y
 #b------------------------------------------------------------------------
 Xt <- t(X)
 Xt %*% X
 dontWorryAboutThis<- Xt %*% X
 #c----------------------------------------------------------------------
-(solve(dontWorryAboutThis)) %*% (Xt %*% y)
+itsFine <- (solve(dontWorryAboutThis)) %*% Xt %*% y
+itsFine[1,]
 #d----------------------------------------------------------
+abline(a=itsFine[1,], b= itsFine[2,])
