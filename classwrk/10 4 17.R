@@ -23,8 +23,21 @@ dnorm(10, mean = 10, sd = 5)
 pnorm(140, 100, 15) - pnorm(110, 100, 15)
 #4, find 90th percentile
 #qnorm(prob, mean, sd)
-qnorm(0.9, mean = 10, sd = 5) #input the percentile or quantile, return the x-axis value
+qnorm(0.9, mean = 100, sd = 15) #input the percentile or quantile, return the x-axis value
 #5, height of normal curve it iq = 100, iq 107
 dnorm(100, 100, 15)
 dnorm(107, 100, 15)
 
+#normal and binomial probability in R
+#here how we check to see if its a binomial 
+#   fixed num of tests
+#   independent
+#   either success or failure 
+#1==============================
+#a--------------------
+#i
+pnorm(60, 64, 2.5)
+#ii
+pnorm(72, 64, 2.5)
+#iii
+pnorm(65, 64, 2.5)-pnorm(61, 64, 2.5)
