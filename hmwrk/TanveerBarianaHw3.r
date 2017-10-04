@@ -63,6 +63,7 @@ Xt %*% X
 dontWorryAboutThis<- Xt %*% X
 #c----------------------------------------------------------------------
 itsFine <- (solve(dontWorryAboutThis)) %*% Xt %*% y
+itsFine[2,]
 itsFine[1,]
 #d----------------------------------------------------------
 abline(a=itsFine[1,], b= itsFine[2,])
