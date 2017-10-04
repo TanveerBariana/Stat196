@@ -48,3 +48,8 @@ pnorm(65, 64, 2.5)-pnorm(61, 64, 2.5)
 #toss biased coin 10 times, prob of head = 0.6
 #rand generate one expt
 rbinom(5, 10, 0.6)
+#P(four heads) in 10 tosses of coin
+rbinom(4, 10, 0.6)
+dbinom(4, 10, 0.6)
+dbinom(6, 10, 0.6)
+dbinom(0:10, 10, 0.6)
