@@ -33,6 +33,9 @@ dnorm(107, 100, 15)
 #   fixed num of tests
 #   independent
 #   either success or failure 
+#   prob stays same from trial to trial
+#   P(X=k)= (n choose k)p^k(1-p)^(n-k)
+#       for k= 0:n
 #1==============================
 #a--------------------
 #i
@@ -41,3 +44,7 @@ pnorm(60, 64, 2.5)
 pnorm(72, 64, 2.5)
 #iii
 pnorm(65, 64, 2.5)-pnorm(61, 64, 2.5)
+
+#toss biased coin 10 times, prob of head = 0.6
+#rand generate one expt
+rbinom(5, 10, 0.6)
