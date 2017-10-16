@@ -32,3 +32,7 @@ thats_why <- c('NumPreg', 'gluc', 'diastolic', 'tricep', 'insulen', 'BMI', 'Diab
 colnames(why_read)<- thats_why
 View(why_read)
 #c
+summary(why_read)
+sum(is.na.data.frame(why_read))
+View(why_read)
+summary()
