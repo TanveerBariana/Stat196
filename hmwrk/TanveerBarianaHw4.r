@@ -24,4 +24,11 @@ corrplot(maybe_thisl_matter, method = "number", type = 'upper')
 #or
 corrplot.mixed(maybe_thisl_matter, lower = "number", upper = 'circle')
 
-#2
+#2%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+#a----------------------------------------------------------------
+why_read <- read.csv("https://archive.ics.uci.edu/ml/machine-learning-databases/pima-indians-diabetes/pima-indians-diabetes.data")
+#b----------------------------------------------------------------
+thats_why <- c('NumPreg', 'gluc', 'diastolic', 'tricep', 'insulen', 'BMI', 'Diabetus?', 'Age', 'Class')
+colnames(why_read)<- thats_why
+View(why_read)
+#c
