@@ -41,6 +41,18 @@ her_vert_w_NA[which(her_vert[, 6] == 0),6] <- NA
 View(her_vert_w_NA)
 
 #d----------------------------------------------------------------
-lm(BMI ~ tricep, her_vert_w_NA)
+val <- lm(BMI ~ tricep, her_vert_w_NA)
+val
 plot(her_vert_w_NA)
-curve()
+abline(lm(BMI ~ tricep, her_vert_w_NA), col = "red")
+#abline(a = 28.9981 * x + 0.1669, col = "red")
+#curve(28.9981 * x + 0.1669, add = T, col= "red")
+#e--------------------------------------------------------------
+install.packages("lattice")
+library(lattice)
+splom(her_vert_w_NA[, 1:5])
+#insuline and glucose show the most corelation 
+#f--------------------------------------------------------------
+cbind(her_vert_w_NA, her_vert_w_NA$Age * 365)
+her_vert_w_NA$Days <- her_vert_w_NA$Age * 365
+View(her_vert_w_NA)
