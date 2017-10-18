@@ -68,10 +68,19 @@ pima.prune.pred <- predict(pima.prune, newdata = Pima.te)
 
 ?read.csv
 #now we play with data
-names(abalone)<- c('sex', 'leng', 'diam', 'ht', 'wholeweight', 'swt','vwt', 'shellwt', 'rings')
+ablone <- read.csv("http://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data", header = F)
+View(ablone)
+names(ablone)<- c('sex', 'leng', 'diam', 'ht', 'wholeweight', 'swt','vwt', 'shellwt', 'rings')
 library(tree)
-View(abalone)
-abalone.Tree <- tree(sex ~ ., data = abalone)
+abalone.Tree <- tree(sex ~ ., data = ablone)
 plot(abalone.Tree)
 text(abalone.Tree)
 abalone.Tree
+
+str(ablone)
+str(abalone.Tree)
+ablone$sex <- factor(ablone$sex)
+abalone.Tree <- tree(sex ~ ., data = ablone)
+Summary(abalone.Tree)
+head(abalone.Tree)
+str(ablone)
