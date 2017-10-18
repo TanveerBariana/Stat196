@@ -37,5 +37,10 @@ View(why_read)
 her_vert <-why_read[which(why_read[, 2] != 0), ]
 View(her_vert)
 her_vert_w_NA <- her_vert
-her_vert_w_NA[which(her_vert[, 6] == 0),] <- NA
+her_vert_w_NA[which(her_vert[, 6] == 0),6] <- NA
 View(her_vert_w_NA)
+
+#d----------------------------------------------------------------
+lm(BMI ~ tricep, her_vert_w_NA)
+plot(her_vert_w_NA)
+curve()
