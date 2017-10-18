@@ -67,12 +67,43 @@ for (i in unique(ChickWeight$Diet)) {
     mea[i] <- mean(which(ChickWeight$Time == 21 & ChickWeight$Diet == i))
 }
 #ignore ________this is for me ________________________________________________
-seq(from = 12, to = 220, by = 12)
-which(ChickWeight$Time == 21 & ChickWeight$Diet == 1)
+#seq(from = 12, to = 220, by = 12)
+#which(ChickWeight$Time == 21 & ChickWeight$Diet == 1)
 #______________________________________________________________________________
 
 #c-----------------------------------------------------------------\
 ? subset #these stay to show me how i cant tell subset and split apart
 ?subset.data.frame
-split(ChickWeight,ChickWeight$Diet) 
+split(ChickWeight, ChickWeight$Diet)
 #4%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+? sample()
+sam_i_am<- 0
+for (i in 1:1000000) {
+    if (length(unique(sample(1:365, 20, T))) != 20) {
+        sam_i_am[i] <- 1
+    } else {
+        sam_i_am[i]<- 0
+    }
+}
+
+i_dont_like_geen_eggs_and_ham <- sum(sam_i_am) / 1000000
+#my notes________________________________________________________
+#? unique
+#length(unique(sample(1:365, 20, T)))
+#_________________________________________________________
+
+#bonus time^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+eggs <- function(n) {
+    sam <- 0
+    for (i in 1:1000000) {
+        if (length(unique(sample(1:365, n, T))) != n) {
+            sam[i] <- 1
+        } else {
+            sam[i] <- 0
+        }
+    }
+    return(sum(sam) / 1000000)
+}
+
+#5%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
