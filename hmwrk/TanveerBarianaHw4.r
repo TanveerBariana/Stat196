@@ -23,7 +23,6 @@ library(corrplot)
 corrplot(maybe_thisl_matter, method = "number", type = 'upper')
 #or
 corrplot.mixed(maybe_thisl_matter, lower = "number", upper = 'circle')
-
 #2%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 #a-------------------------------------------------------------
 why_read <- read.csv("https://archive.ics.uci.edu/ml/machine-learning-databases/pima-indians-diabetes/pima-indians-diabetes.data")
@@ -39,7 +38,6 @@ View(her_vert)
 her_vert_w_NA <- her_vert
 her_vert_w_NA[which(her_vert[, 6] == 0),6] <- NA
 View(her_vert_w_NA)
-
 #d----------------------------------------------------------------
 val <- lm(BMI ~ tricep, her_vert_w_NA)
 val
@@ -56,3 +54,21 @@ splom(her_vert_w_NA[, 1:5])
 cbind(her_vert_w_NA, her_vert_w_NA$Age * 365)
 her_vert_w_NA$Days <- her_vert_w_NA$Age * 365
 View(her_vert_w_NA)
+#3%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+? ChickWeight
+View(ChickWeight)
+#a--------------------------------------------------------------
+#Chick and Diet are factors
+#b-------------------------------------------------------------
+mea<- NULL
+mea <- c((unique(ChickWeight$Diet)))
+unique(ChickWeight$Chick)
+for (i in unique(ChickWeight$Diet)) { 
+    mea[i] <- mean(which(ChickWeight$Time == 21 & ChickWeight$Diet == i))
+}
+#ignore ________this is for me ________________________________________________
+seq(from = 12, to = 220, by = 12)
+which(ChickWeight$Time == 21 & ChickWeight$Diet == 1)
+#______________________________________________________________________________
+
+#c
