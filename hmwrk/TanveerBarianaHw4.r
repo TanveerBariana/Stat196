@@ -106,4 +106,8 @@ eggs <- function(n) {
 }
 
 #5%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+my_data <- matrix( c('f', 'f', 'm', 'f', 'm', 'm', 'm', 'm', 'f', 'm') , byrow=F)
+?data.frame()
+my_data <- cbind(my_data, matrix(c(1, 1, 0, 0, 1, 0, 1, 0, 0, 0)))
+my_data
+table(my_data)
