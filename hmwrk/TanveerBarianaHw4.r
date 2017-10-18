@@ -71,4 +71,8 @@ seq(from = 12, to = 220, by = 12)
 which(ChickWeight$Time == 21 & ChickWeight$Diet == 1)
 #______________________________________________________________________________
 
-#c
+#c-----------------------------------------------------------------\
+? subset #these stay to show me how i cant tell subset and split apart
+?subset.data.frame
+split(ChickWeight,ChickWeight$Diet) 
+#4%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
