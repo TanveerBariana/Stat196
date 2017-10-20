@@ -22,3 +22,18 @@ pimer.Forest
 library(ggplot2)
 p <- ggplot(Pima.tr, aes(x = glu, y = age, col = type)) + geom_point()
 p
+
+
+#mtry is 
+error_mtry <- numeric(7)
+oob.error <- numeric(7)
+for (i in 1:7) {
+    pimer.Forest2 <- randomForest(type ~ ., data = Pima.tr, mtry = i, ntree = 400)
+    oob.error[i] <- pimer.Forest2$eer.rate[400]
+}
+#theres more
+View(iris)
+library(tree)
+
+iris.tree <- tree(formula= type~., data= iris)
+pima.tree <- tree(formula = type ~ ., data = Pima.tr)
