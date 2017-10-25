@@ -39,3 +39,12 @@ pchisq(2, 1)
 #i think i messed up/ they are very differnt, maybe complements
 #44444444444444444444444444444444444444444444444444444444444444444444444
 #aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+facty <- 1/(factorial(1:100))
+#bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+factyPrime[1] <- facty[1]
+for (i in 1:100) {
+    factyPrime[i] <- sum(facty[0:i])
+}
+#ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+plot(c(0:100), factyPrime)
+abline(h=  exp(1))
