@@ -44,8 +44,8 @@ facty <- 1/(factorial(0:100))
 factyPrime<- NULL
 factyPrime <- cumsum(facty)
 factyPrime[1] <- facty[1]
-for (i in 1:100) {
-    factyPrime[i+1] <- sum(facty[0:i])
+
+
 
 #ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 plot(c(0:100), factyPrime)
