@@ -41,10 +41,12 @@ pchisq(2, 1)
 #aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 facty <- 1/(factorial(1:100))
 #bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+factyPrime<- NULL
 factyPrime[1] <- facty[1]
 for (i in 1:100) {
-    factyPrime[i] <- sum(facty[0:i])
+    factyPrime[i+1] <- sum(facty[0:i])
 }
 #ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 plot(c(0:100), factyPrime)
-abline(h=  exp(1))
+abline(h = exp(1), col = "red")
+#i cant get the graph to go high enough to show e
