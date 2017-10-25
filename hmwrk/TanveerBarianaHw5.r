@@ -29,3 +29,13 @@ saem <- sample(5.8:9.2, 10000, T)
 mean(saem)
 sd(saem)
 #33333333333333333333333333333333333333333333333333333333333333333333333
+#aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+#well say anything outside of this[-3:3] is negligable  
+nor <- (sample(-3:3, 10000, T)) ^ 2
+#bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+pnorm(2, mean(nor), sd(nor))
+#ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+pchisq(2, 1)
+#i think i messed up/ they are very differnt, maybe complements
+#44444444444444444444444444444444444444444444444444444444444444444444444
+#aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
