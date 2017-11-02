@@ -19,5 +19,5 @@ test <- cards[which(cards$SEX == 1),]
 train <- cards[-which(cards$SEX == 1),]
 #---------------d-------------------
 library("tree")
-test.tree <- tree(test[, -1])
+test.tree <- tree(SEX~., test[, c(-1)])
 ?tree
