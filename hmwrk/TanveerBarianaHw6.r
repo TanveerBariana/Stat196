@@ -25,6 +25,7 @@ test <- cards[randy,]
 train <- cards[-randy,]
 #---------------d-------------------
 library("tree")
+<<<<<<< HEAD
 train.fix<- train[,-1]
 attach(train.fix)
 str(train)
@@ -59,3 +60,7 @@ card.pred <- predict(card.prune, newdata = test, type = "class")
 #----------------e--------------------
 -2 * (1 * log(0) + 2 * log(0.90741) + 3 * log(0.09259))
 #----------------f--------------------
+=======
+test.tree <- tree(SEX~., test[, c(-1)])
+?tree
+>>>>>>> 322605fef4a94cb32b6580139e136c7f6a78b6db
