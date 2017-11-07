@@ -4,7 +4,7 @@
 #---------------a-------------------
 install.packages("read_xls")
 library("readxl")
-cards <- read_xls(path = "C:\\Users\\tanve\\Desktop\\dataSci\\stat196\\data\\cards.xls")
+cards <- read_excel(path = "C:\\Users\\tanve\\Desktop\\dataSci\\stat196\\data\\cards.xls")
 heads <- cards[1,]
 colnames(cards) <- heads
 cards<- cards[-1,]
