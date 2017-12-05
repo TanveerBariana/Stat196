@@ -1,4 +1,4 @@
-wiki_data_raw <- read.csv(file = "WikiData.csv")
+wiki_data_raw <- read.csv(file = 'C:\\Users\\tanve\\Desktop\\dataSci\\stat196\\hmwrk\\termProject\\WikiData.csv')
 library('data.table')
 library('ggplot2')
 wiki_data_raw<- data.table(wiki_data_raw)
@@ -25,14 +25,32 @@ rownames(daily) <- as.character(dates)
 View(daily)
 
 #2 Which results do people tend to try first? How does it change day-to-day?
-#what do they try first 
-#   make vector of uniques sessions
-#   cut that down to just teh first instance of visitPage
-#   get result num 
-#change day by day
-#   graph with y= result num, x= day 
-wiki_data_search <- data.table(wiki_data_raw)
 
+wiki_data_search <- data.table(wiki_data_raw)
+wiki_data_search <- wiki_data_search[which(wiki_data_raw$action == 'visitPage'),]
+wiki_data_search$result_position <- as.factor(wiki_data_search$result_position)
+wiki_data_search <- wiki_data_search[-which(is.na(wiki_data_search$result_position)),]
+head(sort(summary(wiki_data_search$result_position), decreasing = T))[1]
+     
+
+#over all peopel tend to choose teh first result
+wiki_data_search_daily <- wiki_data_search
+wiki_data_search_daily$timestamp <- as.integer(wiki_data_search_daily$timestamp/1000000)
+wiki_data_search_daily$timestamp<- as.factor(wiki_data_search_daily$timestamp) 
+
+setkey(wiki_data_search_daily, timestamp)
+
+charDates <- as.character(dates)
+dets<- NULL
+for (i in 1:length(charDates)) {
+    temp <- wiki_data_search_daily[.(charDates[i])]
+    print(" the most likey result picked for date ", )
+    print(charDates[1])
+    print(" is ")
+    print(head(sort(summary(temp$result_position), decreasing = T))[1])
+    dets[i] <- head(sort(summary(temp$result_position), decreasing = T))[1]         
+}
+dets<-wiki_data_search_daily[.(dats)]
 #3 What is our daily overall zero results rate ? How does it vary between the groups ?
 #4 Let session length be approximately the time between the first event and the last event in a session. Choose a variable from the dataset and describe its relationship to session length. Visualize the relationship.
 #5 Summarize your findings in an executive summary.
