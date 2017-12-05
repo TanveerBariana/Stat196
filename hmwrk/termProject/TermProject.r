@@ -1,4 +1,4 @@
-wiki_data_raw <- read.csv(file = "C:\\Users\\tanve\\Desktop\\dataSci\\stat196\\data\\WikiData.csv")
+wiki_data_raw <- read.csv(file = "WikiData.csv")
 library('data.table')
 library('ggplot2')
 wiki_data_raw<- data.table(wiki_data_raw)
@@ -23,18 +23,7 @@ daily <- data.frame(daily)
 daily$date<- dates
 rownames(daily) <- as.character(dates)
 View(daily)
-clickthrough <- ggplot(data = daily, aes(x = daily$date, y = daily$avg))
-clickthrough <- clickthrough + geom_bar(aes(fill= daily$date), stat = 'identity', color = 'white', alpha = 0.4)
-clickthrough <- clickthrough + ggtitle('Over all daily Avg for each date') + theme_classic() + scale_fill_brewer(palette = "PuRd")
-clickthrough
-clickthroughA <- ggplot(data = daily, aes(x = daily$date, y = daily$Aavg))
-clickthroughA <- clickthroughA + geom_bar(aes(fill = daily$date), stat = 'identity', color = 'white', alpha = 0.4)
-clickthroughA <- clickthroughA + ggtitle('Daily Avg for group A on each date') + theme_classic() + scale_fill_brewer(palette = "PuRd")
-clickthroughA
-clickthroughB <- ggplot(data = daily, aes(x = daily$date, y = daily$Bavg))
-clickthroughB <- clickthroughB + geom_bar(aes(fill = daily$date), stat = 'identity', color = 'white', alpha = 0.4)
-clickthroughB <- clickthroughB + ggtitle('Daily Avg for group B on each date') + theme_classic() + scale_fill_brewer(palette = "PuRd")
-clickthroughB
+
 #2 Which results do people tend to try first? How does it change day-to-day?
 #what do they try first 
 #   make vector of uniques sessions
