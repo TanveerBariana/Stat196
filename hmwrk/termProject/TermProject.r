@@ -41,16 +41,31 @@ wiki_data_search_daily$timestamp<- as.factor(wiki_data_search_daily$timestamp)
 setkey(wiki_data_search_daily, timestamp)
 
 charDates <- as.character(dates)
-dets<- NULL
+resultQuant <- NULL
 for (i in 1:length(charDates)) {
     temp <- wiki_data_search_daily[.(charDates[i])]
-    print(" the most likey result picked for date ", )
-    print(charDates[1])
-    print(" is ")
-    print(head(sort(summary(temp$result_position), decreasing = T))[1])
-    dets[i] <- head(sort(summary(temp$result_position), decreasing = T))[1]         
+    print(" the most likey result picked for date ", quote = F)
+    print(charDates[1], quote = F)
+    print(" is ", quote = F)
+    print(head(sort(summary(temp$result_position), decreasing = T))[1], quote = F)
+    resultQuant[i] <- head(sort(summary(temp$result_position), decreasing = T))[1]         
 }
 dets<-wiki_data_search_daily[.(dats)]
 #3 What is our daily overall zero results rate ? How does it vary between the groups ?
+wiki_data_zero <- data.table(wiki_data_raw)
+wiki_data_zero <- wiki_data_zero[which(wiki_data_zero$n_results == 0),]
+wiki_data_zero$timestamp <- as.integer(wiki_data_zero$timestamp / 1000000)
+wiki_data_zero$timestamp <- as.factor(wiki_data_zero$timestamp)
+for (i in 1:length(dates)) {
+    daily$Azero[i] <- length(which(wiki_data_zero$group == 'a' & wiki_data_zero$timestamp == dates[i]))
+    daily$Bzero[i] <- length(which(wiki_data_zero$group == 'b' & wiki_data_zero$timestamp == dates[i]))
+}
+daily$Aavgzero <- (daily$Azero) / (daily$Asearchs)
+daily$Bavgzero <- (daily$Bzero) / (daily$Bsearchs)
+daily$avgzero <- (daily$Azero + daily$Bzero) / (daily$Asearchs + daily$Bsearchs)
+
+wiki_data_zero$group == 'a' & wiki_data_zero$timestamp == dates[i]
+
+View(daily)
 #4 Let session length be approximately the time between the first event and the last event in a session. Choose a variable from the dataset and describe its relationship to session length. Visualize the relationship.
 #5 Summarize your findings in an executive summary.
