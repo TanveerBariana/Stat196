@@ -1,0 +1,91 @@
+---
+title: "Introduction to RSQLite Database"
+author: "Michelle Norris"
+date: "November 11, 2017"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+The website Kaggle.com has a collection of interesting datasets.  One is the World Development Indicators dataset at this url  [link](https://www.kaggle.com/worldbank/world-development-indicators).  Here is the description:
+
+>"The World Development Indicators from the World Bank contain over a thousand annual indicators of economic development from hundreds of countries around the world. Here's a list of the available indicators along with a list of the available countries."
+
+For example, this data includes the life expectancy at birth from many countries around the world.
+
+
+Let's go to the url and check out a few cool graphs using this data.  
+
+When you uncompress the data, you obtain many files.  The primary data are stored in a 1.4 GB file called **database.sqlite**.  There are auxiliary files which list information like: all countries in the database, all economic indicators in the database, notes about the data, etc. 
+
+## Small Database Example 
+Let's work with a small database first to get a feel for RSQLite.
+
+```{r mtcars}
+library(RSQLite)
+myconnection = dbConnect(drv=SQLite(),":memory:") # sets up a temporary in-memory database
+
+str(myconnection)
+dbWriteTable(con=myconnection,name="mtcarsdata",value=mtcars)  # don't save this to a named object; mtcars is a built in dataset
+
+dbListTables(myconnection)  #see all tables in myconnection
+dbListFields(myconnection,"mtcarsdata")  #list fields=column names
+```
+
+## Basic SQL Query
+A query is used to extract portions of a database or to summarize records in a database. The syntax of the query to extract specific columns is:  **SELECT column-list , FROM table-name** .  This is SQL (Structured Query Language) syntax and needs to be embedded in an R command for query.
+
+```{r}
+head(dbGetQuery(myconnection,"SELECT disp,cyl FROM mtcarsdata"))
+head(dbGetQuery(myconnection,"SELECT * FROM mtcarsdata"))  #use the wildcard * to get all columns
+```
+
+## RSQLite with a Large database
+
+Let's use RSQLite to read in the database, get information from the data, and run some queries.  First, put the database in your working directory.  Next, we must create a connection to the database.
+
+```{r}
+dbDisconnect(myconnection)  # disconnect the mtcars database
+myconnection2 = dbConnect(drv=SQLite(), dbname="C:\\Users\\sac87931\\Documents\\kaggle\\world-development-indicators\\database.sqlite")  #connect R to the database
+str(myconnection2)
+dbListTables(myconnection2)
+```
+
+
+Each of the tables listed is a data frame.  Let's look at the fields (or column names in a few tables).
+
+```{r}
+head(dbListFields(myconnection2,"Indicators"))
+head(dbListFields(myconnection2,"Country"))
+```
+## Extract Life Expectancy data by gender and Create a Graph
+
+Now we extract data on life expectancy for females and males in the US and construct a time series graph.
+
+```{r}
+
+#female life expectancy at birth
+results.female.life <- dbSendQuery(myconnection2, "SELECT * FROM Indicators WHERE CountryCode = 'USA' AND IndicatorCode='SP.DYN.LE00.FE.IN'" )
+
+tempp = dbFetch(results.female.life, n=Inf)
+head(tempp)
+class(tempp)  # result is a dataframe
+
+dbClearResult(results.female.life) # releases memory
+
+plot(tempp$Year,tempp$Value,type="l",ylim=c(60,80),ylab="Life Expectancy",xlab='Year')
+
+
+#male life expectancy at birth
+results.male.life <- dbSendQuery(myconnection2, "SELECT * FROM Indicators WHERE CountryCode = 'USA' AND IndicatorCode='SP.DYN.LE00.MA.IN'" )
+tempp = dbFetch(results.male.life, n=Inf)
+head(tempp)
+dbClearResult(results.male.life)
+points(tempp$Year,tempp$Value,type="l",col="blue",lty=2)
+```
