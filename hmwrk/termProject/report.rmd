@@ -1,0 +1,91 @@
+---
+title: "Term Project"
+author: "Tanveer S Bariana"
+date: "December 7, 2017"
+output:
+     html_document: 
+       smart: false
+---
+
+In this R markdown file i will go through a data science interveiw question for the prestigieous wikimedia foundation
+
+Before we get started with the questions we must set up the data sets. first we load in teh data then make sure the libraries we need are active
+```{r}
+wiki_data_raw <- read.csv(file = 'C:\\Users\\tanve\\Desktop\\dataSci\\stat196\\hmwrk\\termProject\\WikiData.csv')
+library('data.table')
+library('ggplot2')
+wiki_data_raw <- data.table(wiki_data_raw)
+```
+
+Now that initial setup is done we can move onto the questions
+
+1. What is our daily overall clickthrough rate? How does it vary between the groups?
+2. Which results do people tend to try first? How does it change day-to-day?
+3. What is our daily overall zero results rate? How does it vary between the groups?
+4. Let session length be approximately the time between the first event and the last event in a session. Choose a variable from the dataset and describe its relationship to session length. Visualize the relationship.
+
+The code for the initial code is as follows:
+this initial line sets up the data base so that it is only filled with the important row where it recorded soemone going to a search page or clicking on a result 
+```{r}
+wiki_data_dates <- wiki_data_raw[which(wiki_data_raw$action == 'visitPage' | wiki_data_raw$action == 'searchResultPage'),]
+```
+the following code clips teh time stamp precission down to just the date, this is allows us to group the information based on date
+```{r}
+#cut out the section of the time stamp for hour, minute, or seconds so that you can get the dates. then make it a factor
+wiki_data_dates$timestamp <- as.integer(wiki_data_dates$timestamp / 1000000)
+wiki_data_dates$timestamp <- as.factor(wiki_data_dates$timestamp)
+```
+now we get all the different days andsave them for later 
+```{r}
+dates <- (unique(wiki_data_dates$timestamp))
+```
+then you 
+```{r}
+#for each date fill a data table withs its number of clicks and searches based on groups
+daily <- NULL
+for (i in 1:length(dates)) {
+    daily$Aclicks[i] <- length(which(wiki_data_dates$action == 'visitPage' & wiki_data_dates$timestamp == dates[i] & wiki_data_dates$group == 'a'))
+    daily$Asearchs[i] <- length(which(wiki_data_dates$action == 'searchResultPage' & wiki_data_dates$timestamp == dates[i] & wiki_data_dates$group == 'a'))
+    daily$Bclicks[i] <- length(which(wiki_data_dates$action == 'visitPage' & wiki_data_dates$timestamp == dates[i] & wiki_data_dates$group == 'b'))
+    daily$Bsearchs[i] <- length(which(wiki_data_dates$action == 'searchResultPage' & wiki_data_dates$timestamp == dates[i] & wiki_data_dates$group == 'b'))
+}
+#use the data gathered above to get the averages below 
+daily$Aavg <- daily$Aclicks / daily$Asearchs
+daily$Bavg <- daily$Bclicks / daily$Bsearchs
+daily$avg <- (daily$Aclicks + daily$Bclicks) / (daily$Asearchs + daily$Bsearchs)
+daily <- data.frame(daily)
+daily$date <- dates
+#make the row names the dates for ease of understanding
+rownames(daily) <- as.character(dates)
+View(daily)
+#graph teh findings 
+clickthrough <- ggplot(data = daily, aes(x = daily$date, y = daily$avg))
+clickthrough <- clickthrough + geom_bar(aes(fill = daily$date), stat = 'identity', color = 'white', alpha = 0.4)
+clickthrough <- clickthrough + ggtitle('Over all daily Avg for each date') + theme_classic() + scale_fill_brewer(palette = "PuRd")
+clickthrough
+clickthroughA <- ggplot(data = daily, aes(x = daily$date, y = daily$Aavg))
+clickthroughA <- clickthroughA + geom_bar(aes(fill = daily$date), stat = 'identity', color = 'white', alpha = 0.4)
+clickthroughA <- clickthroughA + ggtitle('Daily Avg for group A on each date') + theme_classic() + scale_fill_brewer(palette = "PuRd")
+clickthroughA
+clickthroughB <- ggplot(data = daily, aes(x = daily$date, y = daily$Bavg))
+clickthroughB <- clickthroughB + geom_bar(aes(fill = daily$date), stat = 'identity', color = 'white', alpha = 0.4)
+clickthroughB <- clickthroughB + ggtitle('Daily Avg for group B on each date') + theme_classic() + scale_fill_brewer(palette = "PuRd")
+clickthroughB
+
+```
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and Microsoft Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **R Tools | Publish | Preview** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+summary(cars)
+```
+
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+plot(cars)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
