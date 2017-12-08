@@ -3,7 +3,6 @@ library('data.table')
 library('ggplot2')
 wiki_data_raw<- data.table(wiki_data_raw)
 str(wiki_data_raw)
-cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 #1 What is our daily overall clickthrough rate? How does it vary between the groups?
 #make a data set of teh instances some one got to a search page or clicked on a result 
 wiki_data_dates <- wiki_data_raw[which(wiki_data_raw$action == 'visitPage' | wiki_data_raw$action == 'searchResultPage'),]
@@ -28,18 +27,17 @@ daily <- data.frame(daily)
 daily$date <- dates
 #make the row names the dates for ease of understanding
 rownames(daily) <- as.character(dates)
-View(daily)
 #graph teh findings 
 clickthrough <- ggplot(data = daily, aes(x = daily$date, y = daily$avg))
 clickthrough <- clickthrough + geom_bar(aes(fill = daily$date), stat = 'identity', color = 'white', alpha = 0.8)
-clickthrough <- clickthrough + ggtitle('Over all daily Avg for each date') + theme_classic() + scale_fill_brewer(palette = "YlOrRd")
+clickthrough <- clickthrough + ggtitle('Over all daily Avg for each date') + theme_classic() + scale_fill_brewer(palette = "PuRd")
 clickthrough
 clickthroughA <- ggplot(data = daily, aes(x = daily$date, y = daily$Aavg))
-clickthroughA <- clickthroughA + geom_bar(aes(fill = daily$date), stat = 'identity', color = 'white', alpha = 0.4)
+clickthroughA <- clickthroughA + geom_bar(aes(fill = daily$date), stat = 'identity', color = 'white', alpha = 0.8)
 clickthroughA <- clickthroughA + ggtitle('Daily Avg for group A on each date') + theme_classic() + scale_fill_brewer(palette = "PuRd")
 clickthroughA
 clickthroughB <- ggplot(data = daily, aes(x = daily$date, y = daily$Bavg))
-clickthroughB <- clickthroughB + geom_bar(aes(fill = daily$date), stat = 'identity', color = 'white', alpha = 0.4)
+clickthroughB <- clickthroughB + geom_bar(aes(fill = daily$date), stat = 'identity', color = 'white', alpha = 0.8)
 clickthroughB <- clickthroughB + ggtitle('Daily Avg for group B on each date') + theme_classic() + scale_fill_brewer(palette = "PuRd")
 clickthroughB
 
@@ -89,15 +87,15 @@ daily$avgzero <- (daily$Azero + daily$Bzero) / (daily$Asearchs + daily$Bsearchs)
 View(daily)
 #graph results
 zeroRate <- ggplot(data = daily, aes(x = daily$date, y = daily$avgzero))
-zeroRate <- clickthrough + geom_bar(aes(fill = daily$date), stat = 'identity', color = 'white', alpha = 0.4)
+zeroRate <- clickthrough + geom_bar(aes(fill = daily$date), stat = 'identity', color = 'white', alpha = 0.8)
 zeroRate <- clickthrough + ggtitle('Over all daily zero result rate for each date') + theme_classic() + scale_fill_brewer(palette = "PuRd")
 zeroRate
 zeroRateA <- ggplot(data = daily, aes(x = daily$date, y = daily$Aavgzero))
-zeroRateA <- zeroRateA + geom_bar(aes(fill = daily$date), stat = 'identity', color = 'white', alpha = 0.4)
+zeroRateA <- zeroRateA + geom_bar(aes(fill = daily$date), stat = 'identity', color = 'white', alpha = 0.8)
 zeroRateA <- zeroRateA + ggtitle('Daily zero result rate for group A on each date') + theme_classic() + scale_fill_brewer(palette = "PuRd")
 zeroRateA
 zeroRateB <- ggplot(data = daily, aes(x = daily$date, y = daily$Bavgzero))
-zeroRateB <- zeroRateB + geom_bar(aes(fill = daily$date), stat = 'identity', color = 'white', alpha = 0.4)
+zeroRateB <- zeroRateB + geom_bar(aes(fill = daily$date), stat = 'identity', color = 'white', alpha = 0.8)
 zeroRateB <- zeroRateB + ggtitle('Daily zero result rate for group B on each date') + theme_classic() + scale_fill_brewer(palette = "PuRd")
 zeroRateB
 
@@ -106,10 +104,23 @@ zeroRateB
 wiki_data_session <- data.table(wiki_data_raw)
 #order it based on time stamp so that it goes first to last
 wiki_data_session_times <- wiki_data_session[order(wiki_data_session$timestamp)]
+wiki_data_session_unique <- unique(wiki_data_session_times$session_id)
 
+wiki_data_session_times[, c("first","last"):=0L]
+wiki_data_session_times[wiki_data_session_times[unique(wiki_data_session_times$session_id), , mult= "first", which= TRUE], first:= 1L]
 summary(wiki_data_session_times$session_id)
 View(wiki_data_session_times)
 
+test<- data.table(wiki_data_session_times, FIRST = !duplicated(wiki_data_session_times$session_id), LAST = rev(!duplicated(rev(wiki_data_session_times$session_id))))
+View(test)
+firsts <- test[which(test$FIRST == T),]
+
+lasts <- test[which(test$LAST == T),]
+times<- NULL
+times$fullFirst<- firsts$timestamp[wiki_data_session_unique,] 
+times$fullLast <- lasts$timestamp
+times$total<- 
+View(times)
 length(unique(wiki_data_session$session_id))
 head(as.character(wiki_data_session_times$timestamp))
 wiki_data_session_times$session_id <- as.numeric(wiki_data_session_times$session_id)
