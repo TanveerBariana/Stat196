@@ -60,7 +60,8 @@ charDates <- as.character(dates)
 resultQuant <- NULL
 #print out most likely result since i dont have to graph it 
 for (i in 1:length(charDates)) {
-    temp <- wiki_data_search_daily[.(charDates[i])]
+    
+    temp <- wiki_data_search_daily[which(as.char(wiki_data_search_daily$dates) == charDates[i])]
     print(" the most likey result picked for date ", quote = F)
     print(charDates[1], quote = F)
     print(" is ", quote = F)
