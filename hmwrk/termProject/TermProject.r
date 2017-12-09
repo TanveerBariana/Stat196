@@ -61,7 +61,7 @@ resultQuant <- NULL
 #print out most likely result since i dont have to graph it 
 for (i in 1:length(charDates)) {
     
-    temp <- wiki_data_search_daily[which(as.char(wiki_data_search_daily$dates) == charDates[i])]
+    temp <- wiki_data_search_daily[.(charDates[i])]
     print(" the most likey result picked for date ", quote = F)
     print(charDates[1], quote = F)
     print(" is ", quote = F)
@@ -106,17 +106,28 @@ wiki_data_session <- data.table(wiki_data_raw)
 #order it based on time stamp so that it goes first to last
 wiki_data_session_times <- wiki_data_session[order(wiki_data_session$timestamp)]
 wiki_data_session_unique <- unique(wiki_data_session_times$session_id)
-
-wiki_data_session_times[, c("first","last"):=0L]
-wiki_data_session_times[wiki_data_session_times[unique(wiki_data_session_times$session_id), , mult= "first", which= TRUE], first:= 1L]
-summary(wiki_data_session_times$session_id)
-View(wiki_data_session_times)
-
-test<- data.table(wiki_data_session_times, FIRST = !duplicated(wiki_data_session_times$session_id), LAST = rev(!duplicated(rev(wiki_data_session_times$session_id))))
+test <- wiki_data_session[order(wiki_data_session$timestamp)]
 View(test)
-firsts <- test[which(test$FIRST == T),]
+View(wiki_data_session_times)
+str(wiki)
 
-lasts <- test[which(test$LAST == T),]
+test <- data.table(test, FIRST = !duplicated(test$session_id), LAST = rev(!duplicated(rev(test$session_id))))
+test <- test[order(test$timestamp)]
+View(test)
+test$timestamp <- time(test$timestamp)
+times <- wiki_data_raw$timestamp - (201603 * 10 ^ 8)
+times$hours <- times 
+head(times)
+format(as.POSIXct((nTime) * 86400, origin = "1970-01-01", tz = "UTC"), "%H:%M")
+
+str(test)
+
+firsts <- which(test$FIRST == T)
+
+lasts <- which(test$LAST == T)
+
+time_dif <-
+    diff.difftime()
 times<- NULL
 times$fullFirst<- firsts$timestamp[wiki_data_session_unique,] 
 times$fullLast <- lasts$timestamp
